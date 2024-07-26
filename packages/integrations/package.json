@@ -1,0 +1,36 @@
+{
+    "name": "@idle-discord-bot/integrations",
+    "version": "1.0.0",
+    "private": "true",
+    "types": "./src/index.ts",
+    "typings": "./src/index.ts",
+    "scripts": {
+        "build": "tsc -p ./tsconfig.lib.json",
+        "format": "prettier --write \"./src/**/*.ts\"",
+        "lint": "eslint \"src/**/*.ts\" --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    },
+    "dependencies": {
+        "@node-steam/id": "^1.2.0",
+        "axios": "^1.7.2",
+        "purify-ts": "^2.1.0"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        }
+    },
+    "typesVersions": {
+        ".": {
+            "*": [
+                "./dist/index.d.ts"
+            ]
+        }
+    }
+}

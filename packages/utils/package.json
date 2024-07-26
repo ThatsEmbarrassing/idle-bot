@@ -1,0 +1,43 @@
+{
+    "name": "@idle-discord-bot/utils",
+    "version": "1.0.0",
+    "private": "true",
+    "main": "./dist/index.js",
+    "module": "./dist/index.js",
+    "types": "./dist/index.d.ts",
+    "scripts": {
+        "build": "tsc -p ./tsconfig.lib.json",
+        "format": "prettier --write \"./src/**/*.ts\"",
+        "lint": "eslint \"src/**/*.ts\" --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    },
+    "exports": {
+        ".": {
+            "import": "./dist/index.js",
+            "require": "./dist/index.js",
+            "types": "./dist/index.d.ts",
+            "default": "./dist/index.js"
+        },
+        "./formatter": {
+            "import": "./dist/formatter/index.js",
+            "require": "./dist/formatter/index.js",
+            "types": "./dist/formatter/index.d.ts",
+            "default": "./dist/formatter/index.js"
+        }
+    },
+    "typesVersions": {
+        ".": {
+            "*": [
+                "./dist/index.d.ts"
+            ]
+        },
+        "./formatter": {
+            "*": [
+                "./dist/formatter/index.d.ts"
+            ]
+        }
+    }
+}

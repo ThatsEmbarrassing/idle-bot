@@ -1,0 +1,48 @@
+{
+    "collection": "@nestjs/schematics",
+    "sourceRoot": "services/discord/src",
+    "monorepo": true,
+    "defaultLibraryPrefix": "@idle-discord-bot",
+    "compilerOptions": {
+        "builder": "tsc",
+        "webpack": true
+    },
+    "projects": {
+        "utils": {
+            "type": "library",
+            "root": "packages/utils",
+            "entryFile": "index",
+            "sourceRoot": "packages/utils/src",
+            "compilerOptions": {
+                "tsConfigPath": "packages/utils/tsconfig.lib.json"
+            }
+        },
+        "integrations": {
+            "type": "library",
+            "root": "packages/integrations",
+            "entryFile": "index",
+            "sourceRoot": "packages/integrations/src",
+            "compilerOptions": {
+                "tsConfigPath": "packages/integrations/tsconfig.lib.json"
+            }
+        },
+        "shared": {
+            "type": "library",
+            "root": "packages/shared",
+            "entryFile": "index",
+            "sourceRoot": "packages/shared/src",
+            "compilerOptions": {
+                "tsConfigPath": "packages/shared/tsconfig.lib.json"
+            }
+        },
+        "discord": {
+            "type": "application",
+            "root": "services/discord",
+            "entryFile": "main",
+            "sourceRoot": "services/discord/src",
+            "compilerOptions": {
+                "tsConfigPath": "services/discord/tsconfig.app.json"
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+{
+    "name": "@idle-discord-bot/discord",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "build": "tsc -p ./tsconfig.json",
+        "format": "prettier --write \"./src/**/*.ts\"",
+        "lint": "eslint \"src/**/*.ts\" --fix",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    },
+    "dependencies": {
+        "@discord-nestjs/common": "^5.2.12",
+        "@discord-nestjs/core": "^5.3.14",
+        "@idle-discord-bot/integrations": "workspace:*",
+        "@idle-discord-bot/shared": "workspace:*",
+        "@idle-discord-bot/utils": "workspace:*",
+        "@node-steam/id": "^1.2.0",
+        "axios": "^1.7.2",
+        "class-transformer": "^0.5.1",
+        "discord.js": "^14.15.3",
+        "purify-ts": "^2.1.0"
+    }
+}

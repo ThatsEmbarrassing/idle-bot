@@ -1,0 +1,14 @@
+# vscode
+.vscode
+
+# turborepo
+.turbo
+
+# build
+dist
+
+# dependencies
+node_modules
+
+# environment variables
+.env
