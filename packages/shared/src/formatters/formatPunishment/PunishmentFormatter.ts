@@ -39,7 +39,7 @@ export class PunishmentFormatter implements IFormatter<IdleUserPunishment> {
 
         return ends === -1
             ? ''
-            : `(${removedOn !== null ? 'закончился' : 'заканчивается!!!'} ${intlFormatDistance(
+            : `(${removedOn !== null ? 'закончился' : 'заканчивается'} ${intlFormatDistance(
                   removedOn ? removedOn * 1000 : data.ends,
                   now,
                   {
