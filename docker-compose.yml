@@ -8,7 +8,3 @@ services:
             context: .
             dockerfile: ./services/discord/Dockerfile
         restart: always
-        volumes:
-            - ./.turbo:/app/.turbo
-volumes:
-    .turbo:
