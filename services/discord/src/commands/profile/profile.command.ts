@@ -11,7 +11,11 @@ import { formatPunishment } from '@idle-discord-bot/shared';
 
 import { ProfileDto } from './dto';
 
-import { ForbiddenFilterException, NotFoundFilterException } from '../../filters';
+import {
+    ForbiddenFilterException,
+    NotFoundFilterException,
+    UnexpectedFilterException,
+} from '../../filters';
 
 import { formatRank, formatVACBan, formatVip } from './formatters';
 
@@ -19,7 +23,7 @@ import type { InteractionReplyOptions } from 'discord.js';
 
 import type { ICombinedProfile } from '@idle-discord-bot/integrations';
 
-@UseFilters(ForbiddenFilterException, NotFoundFilterException)
+@UseFilters(UnexpectedFilterException, ForbiddenFilterException, NotFoundFilterException)
 @Command({
     name: 'profile',
     description: 'Отображает информацию об игроке',

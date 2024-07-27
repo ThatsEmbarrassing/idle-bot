@@ -9,7 +9,11 @@ import { ProfileFactory } from '@idle-discord-bot/integrations';
 
 import { formatPunishment } from '@idle-discord-bot/shared';
 
-import { ForbiddenFilterException, NotFoundFilterException } from '../../../filters';
+import {
+    ForbiddenFilterException,
+    NotFoundFilterException,
+    UnexpectedFilterException,
+} from '../../../filters';
 
 import { PunishmentLogsFactory } from '../factories';
 
@@ -19,7 +23,7 @@ import type { CommandInteraction } from 'discord.js';
 
 import type { ICombinedProfile } from '@idle-discord-bot/integrations';
 
-@UseFilters(ForbiddenFilterException, NotFoundFilterException)
+@UseFilters(UnexpectedFilterException, ForbiddenFilterException, NotFoundFilterException)
 @SubCommand({ name: 'mutes', description: 'История мутов игрока' })
 export class MutesHistoryCommand {
     private createEmbed(profile: ICombinedProfile) {
