@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger as LoggerService } from '@nestjs/common';
 
 import { DiscordModule } from '@discord-nestjs/core';
 
@@ -12,6 +12,12 @@ import { HistoryCommand } from './history.command';
 
 @Module({
     imports: [DiscordModule.forFeature(), IntegrationModule.forFeature()],
-    providers: [PunishmentLogsFactory, BansHistoryCommand, MutesHistoryCommand, HistoryCommand],
+    providers: [
+        PunishmentLogsFactory,
+        BansHistoryCommand,
+        MutesHistoryCommand,
+        HistoryCommand,
+        LoggerService,
+    ],
 })
 export class HistoryCommandModule {}

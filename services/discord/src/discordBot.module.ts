@@ -12,7 +12,7 @@ import { DiscordConfigService, IntegrationConfigService } from './config';
 
 @Module({
     imports: [
-        ConfigModule.forRoot(),
+        ConfigModule.forRoot({ isGlobal: true }),
         DiscordModule.forRootAsync({
             inject: [ConfigService],
             imports: [ConfigModule],

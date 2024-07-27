@@ -1,4 +1,4 @@
-import { Catch, ForbiddenException, Logger } from '@nestjs/common';
+import { Catch, ForbiddenException, Logger as LoggerService } from '@nestjs/common';
 
 import { ConfigService } from '@nestjs/config';
 
@@ -10,13 +10,10 @@ import type { InteractionReplyOptions } from 'discord.js';
 
 @Catch(ForbiddenException)
 export class ForbiddenFilterException implements ExceptionFilter<ForbiddenException> {
-    private readonly configService: ConfigService;
-    private readonly logger: Logger;
-
-    constructor() {
-        this.logger = new Logger('ProfileCommand');
-        this.configService = new ConfigService();
-    }
+    constructor(
+        private readonly loggerService: LoggerService,
+        private readonly configService: ConfigService,
+    ) {}
 
     catch(exception: ForbiddenException): InteractionReplyOptions {
         const DISCORD_OWNER_ID = this.configService.get('DISCORD_OWNER_ID');
@@ -28,12 +25,17 @@ export class ForbiddenFilterException implements ExceptionFilter<ForbiddenExcept
                 `Невозможно получить данные с сервера. Сообщи об этом <@${DISCORD_OWNER_ID}>`,
             );
 
+        // !TODO make an exception extends ForbiddenException and includes a provider's (or command's) name where the exception is thrown
         const { message, value, env } = exception.getResponse() as Record<
             'message' | 'value' | 'env',
             string
         >;
 
-        this.logger.error(`${exception.name}: ${message} ( ${env}=${value} )`);
+        this.loggerService.error(
+            `${exception.name}: ${message} ( ${env}=${value} )`,
+            //! There should be the provider's name instead of this exception's one in the future
+            'ForbiddenFilterException',
+        );
 
         return {
             embeds: [embed],

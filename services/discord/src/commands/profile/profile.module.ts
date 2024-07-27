@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module, Logger as LoggerService } from '@nestjs/common';
 
 import { DiscordModule } from '@discord-nestjs/core';
 
@@ -8,6 +8,6 @@ import { ProfileCommand } from './profile.command';
 
 @Module({
     imports: [DiscordModule.forFeature(), IntegrationModule.forFeature()],
-    providers: [ProfileCommand],
+    providers: [ProfileCommand, LoggerService],
 })
 export class ProfileCommandModule {}
