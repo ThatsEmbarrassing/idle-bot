@@ -29,11 +29,11 @@ export class SteamService {
             return Either.of(data);
         } catch (err) {
             const axiosError = err as AxiosError;
-            return Either.of<T, HttpException>(
+            return left<HttpException, T>(
                 new HttpException(axiosError.message, axiosError.response!.status, {
                     cause: axiosError.cause,
                 }),
-            ).swap();
+            );
         }
     }
 
