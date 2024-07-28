@@ -1,2 +1,3 @@
-export type { ISteamSummaries } from './ISteamSummaries.interface';
-export type { ISteamPlayerBans } from './ISteamPlayerBans.interface';
+export type * from './getPlayerSummaries';
+export type * from './getPlayerBans';
+export type * from './resolveUrl';

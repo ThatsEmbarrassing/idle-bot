@@ -2,6 +2,8 @@ import { HttpException, Injectable, Inject, NotFoundException } from '@nestjs/co
 
 import axios from 'axios';
 
+import { UrlBuilder } from '@innova2/url-builder';
+
 import { Either, Left as left, Right as right } from 'purify-ts';
 
 import { STEAM_API_OPTIONS } from '../../constants';
@@ -10,7 +12,7 @@ import { ApiMethod } from './enum';
 
 import type { SteamAPIOptions } from '../../types';
 
-import type { AxiosInstance } from 'axios';
+import type { AxiosError, AxiosInstance } from 'axios';
 
 import type { ISteamSummaries, ISteamPlayerBans } from './types';
 
@@ -20,17 +22,19 @@ export class SteamService {
 
     private readonly axiosInstance: AxiosInstance;
 
-    private async getResponse<T>(
-        method: ApiMethod,
-        steamID: string,
-    ): Promise<Either<HttpException, T>> {
-        const { token } = this.options;
+    private async getResponse<T>(url: string): Promise<Either<HttpException, T>> {
+        try {
+            const { data } = await this.axiosInstance.get<T>(url);
 
-        const url = `${this.baseSteamAPIUrl}/${method}?key=${token}&steamids=${steamID}`;
-
-        const { data } = await this.axiosInstance.get<T>(url);
-
-        return Either.of(data);
+            return Either.of(data);
+        } catch (err) {
+            const axiosError = err as AxiosError;
+            return Either.of<T, HttpException>(
+                new HttpException(axiosError.message, axiosError.response!.status, {
+                    cause: axiosError.cause,
+                }),
+            ).swap();
+        }
     }
 
     constructor(@Inject(STEAM_API_OPTIONS) private readonly options: SteamAPIOptions) {
@@ -38,10 +42,15 @@ export class SteamService {
     }
 
     async getPlayerSummaries(steamID: string) {
-        const data = await this.getResponse<{ response: { players: ISteamSummaries[] } }>(
-            ApiMethod.GET_PLAYER_SUMMARIES,
-            steamID,
-        );
+        const { token } = this.options;
+
+        const url = UrlBuilder.createFromUrl(this.baseSteamAPIUrl)
+            .addPath(ApiMethod.GET_PLAYER_SUMMARIES)
+            .addQueryParam('key', token)
+            .addQueryParam('steamids', steamID)
+            .toString();
+
+        const data = await this.getResponse<{ response: { players: ISteamSummaries[] } }>(url);
 
         return data
             .map((value) => value.response.players[0])
@@ -53,13 +62,20 @@ export class SteamService {
     async getPlayerBans(
         steamID: string,
     ): Promise<Either<HttpException | NotFoundException, ISteamPlayerBans>> {
-        const data = await this.getResponse<{ players: ISteamPlayerBans[] }>(
-            ApiMethod.GET_PLAYER_BANS,
-            steamID,
-        );
+        const { token } = this.options;
+
+        const url = UrlBuilder.createFromUrl(this.baseSteamAPIUrl)
+            .addPath(ApiMethod.GET_PLAYER_SUMMARIES)
+            .addQueryParam('key', token)
+            .addQueryParam('steamids', steamID)
+            .toString();
+
+        const data = await this.getResponse<{ response: { players: ISteamPlayerBans[] } }>(url);
+
+        console.log(data.unsafeCoerce());
 
         return data
-            .map((value) => value.players[0])
+            .map((value) => value.response.players[0])
             .chain((value) => (value === undefined ? left(new NotFoundException()) : right(value)));
     }
 }
