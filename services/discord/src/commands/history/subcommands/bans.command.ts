@@ -5,7 +5,7 @@ import { SlashCommandPipe } from '@discord-nestjs/common';
 
 import { EmbedBuilder } from 'discord.js';
 
-import { ProfileFactory } from '@idle-discord-bot/integrations';
+import { ProfileFactory, SteamIDFactory } from '@idle-discord-bot/integrations';
 
 import { formatPunishment } from '@idle-discord-bot/shared';
 
@@ -61,6 +61,7 @@ export class BansHistoryCommand {
     constructor(
         private readonly profileFactory: ProfileFactory,
         private readonly punishmentLogsFactory: PunishmentLogsFactory,
+        private readonly steamIDFactory: SteamIDFactory,
     ) {}
 
     @Handler()
@@ -68,7 +69,9 @@ export class BansHistoryCommand {
         @IA() interaction: CommandInteraction,
         @IA(SlashCommandPipe) dto: PunishmentDto,
     ) {
-        const { details, steamID } = dto;
+        const { details } = dto;
+
+        const steamID = await this.steamIDFactory.fromInput(dto.steamID);
 
         const profile = await this.profileFactory.getProfile(steamID);
         const embed = this.createEmbed(profile);

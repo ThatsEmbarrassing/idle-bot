@@ -7,14 +7,17 @@ import type { ISteamIDFactory } from './types';
 
 @Injectable()
 export class SteamIDFactory implements ISteamIDFactory {
-    private readonly baseProfileURl = 'https://steamcommunity.com/id/';
+    private readonly baseProfileURls = [
+        'https://steamcommunity.com/id/',
+        'https://steamcommunity.com/profiles/',
+    ];
 
     private isProfileUrl(input: string) {
-        return input.startsWith(this.baseProfileURl);
+        return this.baseProfileURls.some((url) => input.startsWith(url));
     }
 
     private getVanityFromUrl(input: string) {
-        return input.replace(this.baseProfileURl, '');
+        return this.baseProfileURls.reduce((acc, url) => acc.replace(url, ''), input);
     }
 
     constructor(
@@ -27,6 +30,10 @@ export class SteamIDFactory implements ISteamIDFactory {
 
         const vanity = this.getVanityFromUrl(input);
 
-        return this.urlSteamIDFactoryStrategy.fromInput(vanity);
+        try {
+            return this.staticSteamIDFactoryStrategy.fromInput(vanity);
+        } catch {
+            return this.urlSteamIDFactoryStrategy.fromInput(vanity);
+        }
     }
 }

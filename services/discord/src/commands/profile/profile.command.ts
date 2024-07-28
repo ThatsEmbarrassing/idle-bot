@@ -5,7 +5,7 @@ import { SlashCommandPipe } from '@discord-nestjs/common';
 
 import { EmbedBuilder } from 'discord.js';
 
-import { ProfileFactory } from '@idle-discord-bot/integrations';
+import { ProfileFactory, SteamIDFactory } from '@idle-discord-bot/integrations';
 
 import { formatPunishment } from '@idle-discord-bot/shared';
 
@@ -30,7 +30,10 @@ import type { ICombinedProfile } from '@idle-discord-bot/integrations';
 })
 @Injectable()
 export class ProfileCommand {
-    constructor(private readonly profileFactory: ProfileFactory) {}
+    constructor(
+        private readonly profileFactory: ProfileFactory,
+        private readonly steamIDFactory: SteamIDFactory,
+    ) {}
 
     private createEmbed(profile: ICombinedProfile): EmbedBuilder {
         const { avatar, punishments, nickname, profileurl, rank, steamid, vac, vip } = profile;
@@ -88,7 +91,7 @@ export class ProfileCommand {
     public async onProfile(
         @IA(SlashCommandPipe) dto: ProfileDto,
     ): Promise<InteractionReplyOptions> {
-        const { steamID } = dto;
+        const steamID = await this.steamIDFactory.fromInput(dto.steamID);
 
         const profile = await this.profileFactory.getProfile(steamID);
 

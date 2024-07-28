@@ -1,9 +1,5 @@
 import { Param, ParamType } from '@discord-nestjs/core';
 
-import { Transform } from 'class-transformer';
-
-import { ID as SteamID } from '@node-steam/id';
-
 export class PunishmentDto {
     @Param({
         name: 'steamid',
@@ -11,8 +7,7 @@ export class PunishmentDto {
         required: true,
         type: ParamType.STRING,
     })
-    @Transform(({ value }) => new SteamID(value))
-    public steamID: SteamID = null as unknown as SteamID;
+    public steamID: string = null as unknown as string;
 
     @Param({
         name: 'details',
