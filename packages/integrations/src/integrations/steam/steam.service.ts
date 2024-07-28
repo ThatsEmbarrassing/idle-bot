@@ -77,8 +77,6 @@ export class SteamService {
 
         const data = await this.getResponse<{ players: ISteamPlayerBans[] }>(url);
 
-        console.log(data.unsafeCoerce());
-
         return data
             .map(({ players }) => players[0])
             .chain((value) => (value === undefined ? left(new NotFoundException()) : right(value)));
