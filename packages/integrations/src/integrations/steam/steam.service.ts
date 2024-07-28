@@ -70,15 +70,17 @@ export class SteamService {
         const { token } = this.options;
 
         const url = UrlBuilder.createFromUrl(this.baseSteamAPIUrl)
-            .addPath(ApiMethod.GET_PLAYER_SUMMARIES)
+            .addPath(ApiMethod.GET_PLAYER_BANS)
             .addQueryParam('key', token)
             .addQueryParam('steamids', steamID)
             .toString();
 
-        const data = await this.getResponse<{ response: { players: ISteamPlayerBans[] } }>(url);
+        const data = await this.getResponse<{ players: ISteamPlayerBans[] }>(url);
+
+        console.log(data.unsafeCoerce());
 
         return data
-            .map(({ response: { players } }) => players[0])
+            .map(({ players }) => players[0])
             .chain((value) => (value === undefined ? left(new NotFoundException()) : right(value)));
     }
 
