@@ -17,7 +17,9 @@ export class SteamIDFactory implements ISteamIDFactory {
     }
 
     private getVanityFromUrl(input: string) {
-        return this.baseProfileURls.reduce((acc, url) => acc.replace(url, ''), input);
+        return this.baseProfileURls
+            .reduce((acc, url) => acc.replace(url, ''), input)
+            .replace('/', '');
     }
 
     constructor(
