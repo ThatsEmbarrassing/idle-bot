@@ -10,6 +10,7 @@ import { ProfileFactory, SteamIDFactory } from '@idle-discord-bot/integrations';
 import { formatPunishment } from '@idle-discord-bot/shared';
 
 import {
+    BadFormatFilterException,
     ForbiddenFilterException,
     NotFoundFilterException,
     UnexpectedFilterException,
@@ -23,7 +24,14 @@ import type { CommandInteraction } from 'discord.js';
 
 import type { ICombinedProfile } from '@idle-discord-bot/integrations';
 
-@UseFilters(UnexpectedFilterException, ForbiddenFilterException, NotFoundFilterException)
+const filters = [
+    UnexpectedFilterException,
+    ForbiddenFilterException,
+    NotFoundFilterException,
+    BadFormatFilterException,
+];
+
+@UseFilters(...filters)
 @SubCommand({ name: 'mutes', description: 'История мутов игрока' })
 export class MutesHistoryCommand {
     private createEmbed(profile: ICombinedProfile) {
