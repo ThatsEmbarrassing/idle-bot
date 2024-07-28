@@ -17,7 +17,8 @@
         "@innova2/url-builder": "^3.1.0",
         "@node-steam/id": "^1.2.0",
         "axios": "^1.7.2",
-        "purify-ts": "^2.1.0"
+        "purify-ts": "^2.1.0",
+        "ts-custom-error": "^3.3.1"
     },
     "exports": {
         ".": {

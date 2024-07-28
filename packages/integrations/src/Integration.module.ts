@@ -4,7 +4,12 @@ import { createConfigurableDynamicRootModule } from '@golevelup/nestjs-modules';
 
 import { IdleService, SteamService } from './integrations';
 
-import { ProfileFactory } from './factories';
+import {
+    ProfileFactory,
+    StaticSteamIDFactoryStrategy,
+    UrlSteamIDFactoryStrategy,
+    SteamIDFactory,
+} from './factories';
 
 import { INTEGRATIONS_API_OPTIONS, IDLE_API_OPTIONS, STEAM_API_OPTIONS } from './constants';
 
@@ -37,13 +42,21 @@ export class IntegrationModule extends createConfigurableDynamicRootModule<
     IntegrationsAPIOptions
 >(INTEGRATIONS_API_OPTIONS, {
     providers: [
+        // Integrated services' options
         idleAPIOptionsProvider,
         steamAPIOptionsProvider,
+
+        // Integrated services
         IdleService,
         SteamService,
+
+        // Factories
         ProfileFactory,
+        StaticSteamIDFactoryStrategy,
+        UrlSteamIDFactoryStrategy,
+        SteamIDFactory,
     ],
-    exports: [ProfileFactory],
+    exports: [ProfileFactory, SteamIDFactory],
 }) {
     static forModuleRoot = (options: IntegrationsAPIOptions) =>
         IntegrationModule.forRoot(IntegrationModule, options);
