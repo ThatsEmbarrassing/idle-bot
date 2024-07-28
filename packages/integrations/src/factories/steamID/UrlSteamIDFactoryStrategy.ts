@@ -1,12 +1,11 @@
 import { Injectable } from '@nestjs/common';
 
-import { ID as SteamID } from '@node-steam/id';
-
 import { SteamService } from '../../integrations';
 
 import type { Either } from 'purify-ts';
 
 import type { ISteamIDFactory } from './types';
+import { StaticSteamIDFactoryStrategy } from './StaticSteamIDFactoryStrategy';
 
 @Injectable()
 export class UrlSteamIDFactoryStrategy implements ISteamIDFactory {
@@ -22,11 +21,14 @@ export class UrlSteamIDFactoryStrategy implements ISteamIDFactory {
         return this.safeExtract(await this.steamService.resolveURL(vanity)).steamid;
     }
 
-    constructor(private readonly steamService: SteamService) {}
+    constructor(
+        private readonly steamService: SteamService,
+        private readonly staticSteamIDFactoryStrategy: StaticSteamIDFactoryStrategy,
+    ) {}
 
     async fromInput(vanity: string) {
         const steamID = await this.getSteamIDFromVanity(vanity);
 
-        return new SteamID(steamID);
+        return this.staticSteamIDFactoryStrategy.fromInput(steamID);
     }
 }
