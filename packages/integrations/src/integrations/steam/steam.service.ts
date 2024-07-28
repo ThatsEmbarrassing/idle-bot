@@ -14,7 +14,12 @@ import type { SteamAPIOptions } from '../../types';
 
 import type { AxiosError, AxiosInstance } from 'axios';
 
-import type { ISteamSummaries, ISteamPlayerBans } from './types';
+import {
+    type ISteamSummaries,
+    type ISteamPlayerBans,
+    type ISuccessfulResolveURLResponse as ResolvedURL,
+    ResolveURLResponse,
+} from './types';
 
 @Injectable()
 export class SteamService {
@@ -29,7 +34,7 @@ export class SteamService {
             return Either.of(data);
         } catch (err) {
             const axiosError = err as AxiosError;
-            return left<HttpException, T>(
+            return left(
                 new HttpException(axiosError.message, axiosError.response!.status, {
                     cause: axiosError.cause,
                 }),
@@ -53,7 +58,7 @@ export class SteamService {
         const data = await this.getResponse<{ response: { players: ISteamSummaries[] } }>(url);
 
         return data
-            .map((value) => value.response.players[0])
+            .map(({ response: { players } }) => players[0])
             .chain((value) =>
                 value === undefined ? left(new NotFoundException(steamID)) : right(value),
             );
@@ -72,10 +77,29 @@ export class SteamService {
 
         const data = await this.getResponse<{ response: { players: ISteamPlayerBans[] } }>(url);
 
-        console.log(data.unsafeCoerce());
+        return data
+            .map(({ response: { players } }) => players[0])
+            .chain((value) => (value === undefined ? left(new NotFoundException()) : right(value)));
+    }
+
+    async resolveURL(
+        vanityurl: string,
+    ): Promise<Either<HttpException | NotFoundException, ResolvedURL>> {
+        const { token } = this.options;
+
+        const url = UrlBuilder.createFromUrl(this.baseSteamAPIUrl)
+            .addPath(ApiMethod.RESOLVE_URL)
+            .addQueryParam('key', token)
+            .addQueryParam('vanityurl', vanityurl)
+            .toString();
+
+        const data = await this.getResponse<{ response: ResolveURLResponse }>(url);
 
         return data
-            .map((value) => value.response.players[0])
-            .chain((value) => (value === undefined ? left(new NotFoundException()) : right(value)));
+            .map(({ response }) => response)
+            .chain((value) =>
+                //! `value.success === 42` means that a user with this vanity is not found
+                value.success === 42 ? left(new NotFoundException(vanityurl)) : right(value),
+            );
     }
 }
