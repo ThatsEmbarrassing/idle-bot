@@ -26,6 +26,12 @@
             "require": "./dist/formatter/index.js",
             "types": "./dist/formatter/index.d.ts",
             "default": "./dist/formatter/index.js"
+        },
+        "./safeExtract": {
+            "import": "./dist/safeExtract/index.js",
+            "require": "./dist/safeExtract/index.js",
+            "types": "./dist/safeExtract/index.d.ts",
+            "default": "./dist/safeExtract/index.js"
         }
     },
     "typesVersions": {
