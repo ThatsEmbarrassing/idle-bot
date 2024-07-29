@@ -2,23 +2,16 @@ import { Injectable } from '@nestjs/common';
 
 import { SteamService } from '../../integrations';
 
-import type { Either } from 'purify-ts';
+import { safeExtract } from '@idle-discord-bot/utils';
+
+import { StaticSteamIDFactoryStrategy } from './StaticSteamIDFactoryStrategy';
 
 import type { ISteamIDFactory } from './types';
-import { StaticSteamIDFactoryStrategy } from './StaticSteamIDFactoryStrategy';
 
 @Injectable()
 export class UrlSteamIDFactoryStrategy implements ISteamIDFactory {
-    private safeExtract<L, R>(either: Either<L, R>): Exclude<L | R, Error> {
-        const value = either.extract();
-
-        if (value instanceof Error) throw value;
-
-        return value as Exclude<L | R, Error>;
-    }
-
     private async getSteamIDFromVanity(vanity: string) {
-        return this.safeExtract(await this.steamService.resolveURL(vanity)).steamid;
+        return safeExtract(await this.steamService.resolveURL(vanity)).steamid;
     }
 
     constructor(

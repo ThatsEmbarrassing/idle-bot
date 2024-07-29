@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 
-import { Either } from 'purify-ts';
-
 import { ID as SteamID } from '@node-steam/id';
+
+import { safeExtract } from '@idle-discord-bot/utils';
 
 import { IdleService, SteamService } from '../../integrations';
 
@@ -10,14 +10,6 @@ import type { ICombinedProfile } from './types';
 
 @Injectable()
 export class ProfileFactory {
-    private safeExtract<L, R>(either: Either<L, R>): Exclude<L | R, Error> {
-        const value = either.extract();
-
-        if (value instanceof Error) throw value;
-
-        return value as Exclude<L | R, Error>;
-    }
-
     private async combineSteamInfo(steamID: SteamID) {
         const [steamPlayerSummaries, steamPlayerBans] = await Promise.all([
             this.steamService.getPlayerSummaries(steamID.get64()),
@@ -51,12 +43,12 @@ export class ProfileFactory {
             ...value,
             punishments: {
                 mutes: {
-                    current: this.safeExtract(currentMute),
-                    history: this.safeExtract(mutesHistory),
+                    current: safeExtract(currentMute),
+                    history: safeExtract(mutesHistory),
                 },
                 bans: {
-                    current: this.safeExtract(currentBan),
-                    history: this.safeExtract(bansHistory),
+                    current: safeExtract(currentBan),
+                    history: safeExtract(bansHistory),
                 },
             },
         }));
@@ -69,8 +61,8 @@ export class ProfileFactory {
         ]);
 
         return {
-            ...this.safeExtract(idleCombinedInfo),
-            ...this.safeExtract(steamCombinedInfo),
+            ...safeExtract(idleCombinedInfo),
+            ...safeExtract(steamCombinedInfo),
         } as ICombinedProfile;
     }
 

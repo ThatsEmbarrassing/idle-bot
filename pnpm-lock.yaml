@@ -69,6 +69,9 @@ importers:
 
   packages/integrations:
     dependencies:
+      '@idle-discord-bot/utils':
+        specifier: workspace:*
+        version: link:../utils
       '@innova2/url-builder':
         specifier: ^3.1.0
         version: 3.1.0
