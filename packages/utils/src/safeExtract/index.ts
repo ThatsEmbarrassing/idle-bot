@@ -1,0 +1,1 @@
+export { safeExtract } from './safeExtract';

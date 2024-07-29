@@ -97,7 +97,11 @@ importers:
         specifier: ^3.6.0
         version: 3.6.0
 
-  packages/utils: {}
+  packages/utils:
+    dependencies:
+      purify-ts:
+        specifier: ^2.1.0
+        version: 2.1.0
 
   services/discord:
     dependencies:
