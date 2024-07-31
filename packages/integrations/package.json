@@ -2,10 +2,10 @@
     "name": "@idle-discord-bot/integrations",
     "version": "1.1.0",
     "private": "true",
-    "types": "./src/index.ts",
-    "typings": "./src/index.ts",
+    "types": "./dist/index.ts",
+    "typings": "./dist/index.ts",
     "scripts": {
-        "build": "tsc -p ./tsconfig.lib.json",
+        "build": "tsc -p ./tsconfig.json && tsc-alias",
         "format": "prettier --write \"./src/**/*.ts\"",
         "lint": "eslint \"src/**/*.ts\" --fix",
         "test": "jest",

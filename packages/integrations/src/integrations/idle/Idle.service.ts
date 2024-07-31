@@ -10,7 +10,7 @@ import axios from 'axios';
 
 import { Either, Left as left, Right as right } from 'purify-ts';
 
-import { IDLE_API_OPTIONS } from '../../constants';
+import { IDLE_API_OPTIONS } from '@/constants';
 
 import { ApiMethod } from './enums';
 import { INVALID_TOKEN } from './contants';
@@ -23,7 +23,7 @@ import {
 
 import type { AxiosInstance } from 'axios';
 
-import type { IdleAPIOptions } from '../../types';
+import type { IdleAPIOptions } from '@/types';
 
 import type { CurrentBanResponse } from './types/currentBanResponse';
 import type { CurrentMuteResponse } from './types/currentMuteResponse';

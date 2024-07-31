@@ -4,7 +4,7 @@ import { findAdminNameByCode } from './findAdminByCode';
 
 import { returnLongRemoveType } from './returnLongRemoveType';
 
-import type { IBasePunishment } from '../../types/common';
+import type { IBasePunishment } from '@integrations/idle/types';
 
 import type { IdleUserPunishment } from './types';
 

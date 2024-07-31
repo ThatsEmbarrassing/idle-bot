@@ -1,4 +1,4 @@
-import type { IVipResponse } from '../../../types/profileResponse';
+import type { IVipResponse } from '@integrations/idle/types';
 
 /**
  * Modified information about player's VIP status. Same as {@link IVipResponse | IVipResponse}

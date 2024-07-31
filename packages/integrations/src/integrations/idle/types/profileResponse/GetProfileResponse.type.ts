@@ -1,4 +1,4 @@
-import { INVALID_TOKEN } from '../../contants';
+import { INVALID_TOKEN } from '@integrations/idle/contants';
 
 import type { IFailedResponse as IFailedGetProfileResponse } from '../common';
 

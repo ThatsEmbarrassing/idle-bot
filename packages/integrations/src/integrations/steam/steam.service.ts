@@ -6,11 +6,11 @@ import { UrlBuilder } from '@innova2/url-builder';
 
 import { Either, Left as left, Right as right } from 'purify-ts';
 
-import { STEAM_API_OPTIONS } from '../../constants';
+import { STEAM_API_OPTIONS } from '@/constants';
 
 import { ApiMethod } from './enum';
 
-import type { SteamAPIOptions } from '../../types';
+import type { SteamAPIOptions } from '@/types';
 
 import type { AxiosError, AxiosInstance } from 'axios';
 

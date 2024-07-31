@@ -1,5 +1,5 @@
-import type { IBasePunishment as CurrentMuteResponse } from '../../../types/common';
-import type { PunishmentName, PunishmentLongRemoveType } from '../../../enums';
+import type { IBasePunishment as CurrentMuteResponse } from '@integrations/idle/types';
+import type { PunishmentName, PunishmentLongRemoveType } from '@integrations/idle/enums';
 
 /**
  * Modified information about player's mute

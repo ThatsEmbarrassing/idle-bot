@@ -1,4 +1,4 @@
-import { PunishmentShortRemoveType, PunishmentLongRemoveType } from '../../enums';
+import { PunishmentShortRemoveType, PunishmentLongRemoveType } from '@integrations/idle/enums';
 
 export const returnLongRemoveType = (
     short: PunishmentShortRemoveType | null,

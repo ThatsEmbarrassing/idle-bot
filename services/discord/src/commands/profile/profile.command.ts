@@ -16,7 +16,7 @@ import {
     ForbiddenFilterException,
     NotFoundFilterException,
     UnexpectedFilterException,
-} from '../../filters';
+} from '@/filters';
 
 import { formatRank, formatVACBan, formatVip } from './formatters';
 

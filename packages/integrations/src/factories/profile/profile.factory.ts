@@ -4,7 +4,7 @@ import { ID as SteamID } from '@node-steam/id';
 
 import { safeExtract } from '@idle-discord-bot/utils';
 
-import { IdleService, SteamService } from '../../integrations';
+import { IdleService, SteamService } from '@/integrations';
 
 import type { ICombinedProfile } from './types';
 

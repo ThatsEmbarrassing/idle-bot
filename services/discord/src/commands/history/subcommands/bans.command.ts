@@ -14,7 +14,7 @@ import {
     ForbiddenFilterException,
     NotFoundFilterException,
     UnexpectedFilterException,
-} from '../../../filters';
+} from '@/filters';
 
 import { PunishmentLogsFactory } from '../factories';
 

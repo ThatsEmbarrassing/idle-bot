@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 
-import { SteamService } from '../../integrations';
+import { SteamService } from '@integrations/steam';
 
 import { safeExtract } from '@idle-discord-bot/utils';
 

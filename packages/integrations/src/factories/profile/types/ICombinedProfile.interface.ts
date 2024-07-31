@@ -4,7 +4,7 @@ import type {
     IdleUserPunishmentHistory,
     IdleUserRank,
     IdleUserVIP,
-} from '../../../integrations';
+} from '@integrations/idle';
 
 export interface ICombinedPunishment {
     current: IdleUserPunishment | null;

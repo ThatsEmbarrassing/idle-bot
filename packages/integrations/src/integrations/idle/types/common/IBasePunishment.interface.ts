@@ -1,4 +1,4 @@
-import type { PunishmentCode, PunishmentShortRemoveType } from '../../enums';
+import type { PunishmentCode, PunishmentShortRemoveType } from '@integrations/idle/enums';
 
 /**
  * Information about player's current punishment
