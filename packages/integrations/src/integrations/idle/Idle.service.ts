@@ -13,7 +13,7 @@ import { Either, Left as left, Right as right } from 'purify-ts';
 import { IDLE_API_OPTIONS } from '@/constants';
 
 import { ApiMethod } from './enums';
-import { INVALID_TOKEN } from './contants';
+import { INVALID_TOKEN } from './constants';
 
 import {
     profileTransformator,

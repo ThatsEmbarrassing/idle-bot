@@ -79,7 +79,9 @@ export class SteamService {
 
         return data
             .map(({ players }) => players[0])
-            .chain((value) => (value === undefined ? left(new NotFoundException()) : right(value)));
+            .chain((value) =>
+                value === undefined ? left(new NotFoundException(steamID)) : right(value),
+            );
     }
 
     async resolveURL(

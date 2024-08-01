@@ -1,4 +1,4 @@
-import { INVALID_TOKEN } from '@integrations/idle/contants';
+import { INVALID_TOKEN } from '@/integrations/idle/constants';
 
 import type {
     IBasePunishment as ISuccessfulCurrentBanResponse,

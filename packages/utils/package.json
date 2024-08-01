@@ -8,10 +8,10 @@
     "scripts": {
         "build": "tsc -p ./tsconfig.json",
         "format": "prettier --write \"./src/**/*.ts\"",
-        "lint": "eslint \"src/**/*.ts\" --fix",
-        "test": "jest",
-        "test:watch": "jest --watch",
-        "test:cov": "jest --coverage",
+        "lint": "eslint \"src/**/*.ts\" --fix --ignore-path ../../.eslintignore",
+        "test": "jest --config ./jest.config.ts",
+        "test:watch": "jest --watch --config ./jest.config.ts",
+        "test:cov": "jest --coverage --config ./jest.config.ts",
         "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
     },
     "exports": {

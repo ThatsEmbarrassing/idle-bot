@@ -5,7 +5,7 @@
     "scripts": {
         "build": "tsc -p ./tsconfig.json && tsc-alias",
         "format": "prettier --write \"./src/**/*.ts\"",
-        "lint": "eslint \"src/**/*.ts\" --fix",
+        "lint": "eslint \"src/**/*.ts\" --fix --ignore-path ../../.eslintignore",
         "test": "jest",
         "test:watch": "jest --watch",
         "test:cov": "jest --coverage",

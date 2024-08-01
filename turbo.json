@@ -6,6 +6,13 @@
             "outputs": ["dist/**"],
             "cache": false
         },
-        "lint": {}
+        "format": {},
+        "lint": {
+            "dependsOn": ["format"],
+            "persistent": true
+        },
+        "test": {
+            "dependsOn": ["^test"]
+        }
     }
 }

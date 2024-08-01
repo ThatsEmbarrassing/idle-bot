@@ -7,7 +7,7 @@ import { EmbedBuilder } from 'discord.js';
 
 import { ProfileFactory, SteamIDFactory } from '@idle-discord-bot/integrations';
 
-import { formatPunishment } from '@idle-discord-bot/shared';
+import { formatPunishment, formatRank, formatVACBan, formatVip } from '@idle-discord-bot/shared';
 
 import { ProfileDto } from './dto';
 
@@ -17,8 +17,6 @@ import {
     NotFoundFilterException,
     UnexpectedFilterException,
 } from '@/filters';
-
-import { formatRank, formatVACBan, formatVip } from './formatters';
 
 import type { InteractionReplyOptions } from 'discord.js';
 

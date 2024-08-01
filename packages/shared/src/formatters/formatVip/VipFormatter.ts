@@ -1,6 +1,7 @@
 import { IFormatter } from '@idle-discord-bot/utils';
 
-import { formatDateTime, formatDateDistance } from '@idle-discord-bot/shared';
+import { formatDateTime } from '../formatDateTime';
+import { formatDateDistance } from '../formatDateDistance';
 
 import type { IdleUserVIP } from '@idle-discord-bot/integrations';
 

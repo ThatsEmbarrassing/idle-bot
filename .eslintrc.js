@@ -12,7 +12,6 @@ module.exports = {
         node: true,
         jest: true,
     },
-    ignorePatterns: ['.eslintrc.js'],
     rules: {
         'no-empty-function': 'off',
         'no-empty-pattern': 'off',
