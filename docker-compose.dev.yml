@@ -1,0 +1,10 @@
+version: '3'
+
+services:
+    discord:
+        env_file: '.env.development'
+        container_name: discord
+        build:
+            context: .
+            dockerfile: ./services/discord/Dockerfile
+        restart: always
