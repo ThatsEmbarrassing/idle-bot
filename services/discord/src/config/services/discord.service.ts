@@ -14,18 +14,27 @@ export class DiscordConfigService implements DiscordOptionsFactory {
     constructor(@Inject(ConfigService) private readonly configService: ConfigService) {}
 
     createDiscordOptions(): DiscordModuleOption {
-        return {
+        const commonOptions: DiscordModuleOption = {
             token: this.configService.get('BOT_TOKEN')!,
             discordClientOptions: {
                 intents: [IntentsBitField.Flags.Guilds, IntentsBitField.Flags.GuildMessages],
             },
-            registerCommandOptions: this.isDev()
-                ? [
-                      {
-                          forGuild: this.configService.get('DEV_GUILD_DISCORD_ID'),
-                      },
-                  ]
-                : undefined,
         };
+
+        const productionOptions: DiscordModuleOption = {
+            ...commonOptions,
+        };
+
+        const devOptions: DiscordModuleOption = {
+            ...commonOptions,
+            registerCommandOptions: [
+                {
+                    forGuild: this.configService.get('DEV_GUILD_DISCORD_ID'),
+                    removeCommandsBefore: true,
+                },
+            ],
+        };
+
+        return this.isDev() ? devOptions : productionOptions;
     }
 }
