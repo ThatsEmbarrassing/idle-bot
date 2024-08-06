@@ -5,6 +5,7 @@
     "license": "UNLICENSED",
     "packageManager": "pnpm@9.2.0",
     "scripts": {
+        "start:dev": "turbo run start:dev",
         "build": "turbo run build",
         "lint": "turbo run lint",
         "test": "turbo run test"

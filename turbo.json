@@ -3,8 +3,11 @@
     "tasks": {
         "build": {
             "dependsOn": ["^build"],
-            "outputs": ["dist/**"],
-            "cache": false
+            "outputs": ["dist/**"]
+        },
+        "start:dev": {
+            "dependsOn": ["^build"],
+            "outputs": ["dist/**"]
         },
         "format": {},
         "lint": {
