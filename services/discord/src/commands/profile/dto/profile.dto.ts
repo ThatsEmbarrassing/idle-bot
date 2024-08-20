@@ -7,5 +7,5 @@ export class ProfileDto {
         required: true,
         type: ParamType.STRING,
     })
-    public steamID: string = null as unknown as string;
+    public steamID: string;
 }
