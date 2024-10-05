@@ -9,30 +9,37 @@ generator client {
 }
 
 datasource db {
-  provider = "mongodb"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
-model SteamUser {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
-    userID String @unique
-
-    User User?
-}
-
 model DiscordUser {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
+    id Int @id @default(autoincrement())
     userID String @unique
 
     User User?
 }
 
 model User {
-    id String @id @default(auto()) @map("_id") @db.ObjectId
+    id Int @id @default(autoincrement())
+    steamID String @unique
 
-    steamUser SteamUser @relation(fields: [steamID], references: [id])
-    steamID String @unique @db.ObjectId
+    discordUser DiscordUser? @relation(fields: [discordSID], references: [id], onDelete: SetNull, onUpdate: Cascade)
+    discordSID Int? @unique
+}
 
-    discordUser DiscordUser? @relation(fields: [discordID], references: [id])
-    discordID String? @unique @db.ObjectId
+model UserIdentifier {
+    id String @id @default(uuid())
+
+    provider UserProvider
+    providerID String
+    userProviderID String
+
+    externalData Json?
+
+    createdAt DateTime @default(now())
+}
+
+enum UserProvider {
+    DISCORD
 }
