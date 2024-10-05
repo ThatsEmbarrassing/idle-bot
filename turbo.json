@@ -7,7 +7,8 @@
             "cache": true
         },
         "start:dev": {
-            "dependsOn": ["^build"]
+            "dependsOn": ["^build"],
+            "cache": false
         },
         "format": {},
         "lint": {

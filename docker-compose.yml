@@ -1,6 +1,31 @@
-version: '3'
+version: '3.9'
 
 services:
+    postgresdb:
+        image: postgres
+        env_file: '.env'
+        restart: always
+        container_name: postgresdb
+        ports:
+            - '5432:5432'
+        environment:
+            POSTGRES_USER: ${DATABASE_USERNAME}
+            POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+            POSTGRES_DB: ${DATABASE_NAME}
+        volumes:
+            - ./db:/var/lib/postgresql/data
+    rabbitmq:
+        image: rabbitmq:3-management
+        container_name: rabbitmq
+        environment:
+            - RABBITMQ_DEFAULT_USER=${RABBITMQ_USER}
+            - RABBITMQ_DEFAULT_PASS=${RABBITMQ_PASSWORD}
+            - RABBITMQ_SERVER_ADDITIONAL_ERL_ARGS=-rabbit log_levels [{connection,error},{default,error}] disk_free_limit 2147483648
+        ports:
+            - ${RABBITMQ_CLASTER_PORT}:5672
+            - 15672:15672
+        volumes:
+            - ./rabbitmq_data:/var/lib/rabbitmq
     discord:
         env_file: '.env'
         container_name: discord
@@ -8,3 +33,16 @@ services:
             context: .
             dockerfile: ./services/discord/Dockerfile
         restart: always
+    backend:
+        env_file: '.env'
+        container_name: backend
+        build:
+            context: .
+            dockerfile: ./services/backend/Dockerfile
+        restart: always
+        ports:
+            - ${BACKEND_PORT}:${BACKEND_PORT}
+
+volumes:
+    db:
+    rabbitmq_data:

@@ -13,6 +13,9 @@ node_modules
 # environment variables
 .env*
 
-
 # testing
 coverage
+
+# microservices
+db
+rabbitmq_data
