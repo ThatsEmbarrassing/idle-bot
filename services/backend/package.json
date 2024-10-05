@@ -1,0 +1,37 @@
+{
+    "name": "@idle-discord-bot/backend",
+    "version": "1.0.0",
+    "private": true,
+    "scripts": {
+        "start": "node ./dist/main.js",
+        "start:dev": "node --env-file ../../.env.development ./dist/main.js",
+        "build": "tsc -p ./tsconfig.json && tsc-alias",
+        "format": "prettier --write \"./src/**/*.ts\"",
+        "lint": "eslint \"src/**/*.ts\" --fix --ignore-path ../../.eslintignore",
+        "test": "jest",
+        "test:watch": "jest --watch",
+        "test:cov": "jest --coverage",
+        "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand"
+    },
+    "dependencies": {
+        "@fabiansharp/modern-passport-steam": "^1.2.9",
+        "@nestjs/passport": "^10.0.3",
+        "@prisma/client": "^5.18.0",
+        "amqp-connection-manager": "^4.1.14",
+        "amqplib": "^0.10.4",
+        "axios": "^1.7.2",
+        "class-validator": "^0.14.1",
+        "cookie-parser": "^1.4.6",
+        "nestjs-prisma": "^0.23.0",
+        "passport": "^0.7.0",
+        "passport-steam": "^1.0.18",
+        "prisma": "^5.18.0",
+        "rxjs": "^7.8.1",
+        "timestring": "^7.0.0"
+    },
+    "devDependencies": {
+        "@types/cookie-parser": "^1.4.7",
+        "@types/passport-steam": "^1.0.6",
+        "@types/timestring": "^6.0.5"
+    }
+}
