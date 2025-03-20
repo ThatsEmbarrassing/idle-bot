@@ -18,7 +18,7 @@
         "@idle-discord-bot/shared": "workspace:*",
         "@idle-discord-bot/utils": "workspace:*",
         "@node-steam/id": "^1.2.0",
-        "axios": "^1.7.2",
+        "axios": "^1.8.2",
         "class-transformer": "^0.5.1",
         "discord.js": "^14.15.3",
         "purify-ts": "^2.1.0"
